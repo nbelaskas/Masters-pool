@@ -971,33 +971,56 @@ async function fetchESPN(silent=false){
     const event=data?.events?.[0];
     if(!event)throw new Error('No active event');
     const comps=event?.competitions?.[0]?.competitors||[];
+
+    // Build ESPN map by lowercase name
     const espnMap={};
     comps.forEach(c=>{
       const fn=(c.athlete?.displayName||`${c.athlete?.firstName||''} ${c.athlete?.lastName||''}`).trim();
       espnMap[fn.toLowerCase()]=c;
     });
+
     const[entries,exScores]=await Promise.all([sbGet('entries','?select=picks'),sbGet('scores','?select=*')]);
     const exMap={};exScores.forEach(s=>exMap[s.player]=s);
     const players=[...new Set(entries.flatMap(e=>Object.values(e.picks).flatMap(v=>Array.isArray(v)?v:[v])))];
-    const rk='r'+activeRound;const ups=[];let matched=0;
+
+    const ups=[];let matched=0;let cutCount=0;
+
     players.forEach(player=>{
       const comp=espnMap[player.toLowerCase()];if(!comp)return;
-      const is_cut=comp.status?.type?.name==='STATUS_CUT'||comp.status?.type?.description?.toLowerCase().includes('cut')||false;
+
+      // Detect cut — check multiple ESPN status fields
+      const statusName=comp.status?.type?.name||'';
+      const statusDesc=(comp.status?.type?.description||'').toLowerCase();
+      const is_cut=statusName==='STATUS_CUT'||statusDesc.includes('cut')||statusDesc.includes('wd')||statusName==='STATUS_WD'||false;
+      if(is_cut)cutCount++;
+
+      // Pull all 4 rounds from linescores array
       const ls=comp.linescores||[];
-      let rScore=null;
-      const v=ls[activeRound-1]?.value;
-      if(v!==undefined&&v!==null&&!isNaN(Number(v)))rScore=Number(v)===0?'E':Number(v)>0?`+${Number(v)}`:`${Number(v)}`;
-      if(rScore===null&&activeRound===1){const ov=comp.score?.value;if(ov!==undefined&&ov!==null){const n=Number(ov);rScore=n===0?'E':n>0?`+${n}`:`${n}`;}}
+      const fmtR=v=>{
+        if(v===undefined||v===null||isNaN(Number(v)))return null;
+        const n=Number(v);return n===0?'E':n>0?`+${n}`:`${n}`;
+      };
+
       const prev=exMap[player]||{r1:null,r2:null,r3:null,r4:null,is_cut:false};
-      const ur={player,is_cut,r1:prev.r1,r2:prev.r2,r3:prev.r3,r4:prev.r4};
-      ur[rk]=is_cut&&activeRound>=3?'+10':(rScore||prev[rk]);
-      ups.push(ur);matched++;
+
+      // For each round: use ESPN score if available, else keep existing, else null
+      // Cut players get +10 auto-applied for R3 and R4
+      const r1=fmtR(ls[0]?.value)||prev.r1||null;
+      const r2=fmtR(ls[1]?.value)||prev.r2||null;
+      const r3=is_cut?(prev.r3||'+10'):fmtR(ls[2]?.value)||prev.r3||null;
+      const r4=is_cut?(prev.r4||'+10'):fmtR(ls[3]?.value)||prev.r4||null;
+
+      ups.push({player,is_cut,r1,r2,r3,r4});
+      matched++;
     });
+
     if(ups.length)await sbUpsert('scores',ups,'player');
     if(isAdmin())loadScoreGrid();
+    loadLB();
     const ts=new Date().toLocaleTimeString();
-    if(st)st.textContent=`✓ ${matched}/${players.length} players · ${ts}`;
-    if(!silent)toast(`ESPN: ${matched} scores updated ✓`);
+    const cutMsg=cutCount>0?` · ${cutCount} cut`:'';
+    if(st)st.textContent=`✓ ${matched}/${players.length} players${cutMsg} · ${ts}`;
+    if(!silent)toast(`ESPN: ${matched} updated${cutCount>0?', '+cutCount+' cut':''} ✓`);
   }catch(e){if(st)st.textContent='⚠️ '+e.message;if(!silent)toast('ESPN fetch failed');console.error(e);}
 }
 
