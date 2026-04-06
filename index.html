@@ -29,10 +29,11 @@ body{font-family:'Crimson Pro',Georgia,serif;background:var(--gd);color:var(--cr
 /* SHARED */
 .field{margin-bottom:13px;}
 .field label{display:block;font-family:‘IM Fell English SC’,serif;font-size:11px;letter-spacing:2px;color:var(–go);margin-bottom:5px;opacity:.85;}
-input[type=text],input[type=password],select,textarea{width:100%;background:rgba(0,0,0,.25);border:1px solid rgba(201,168,76,.3);border-radius:6px;padding:9px 13px;color:var(–cr);font-family:‘Crimson Pro’,serif;font-size:15px;outline:none;transition:border-color .2s;}
+input[type=text],input[type=password],select,textarea{width:100%;background:rgba(0,0,0,.25);border:1px solid rgba(201,168,76,.3);border-radius:6px;padding:9px 13px;color:var(–cr);font-family:‘Crimson Pro’,serif;font-size:15px;outline:none;transition:border-color .2s;-webkit-text-fill-color:var(–cr);opacity:1;}
+input::placeholder{color:rgba(245,240,232,.3);-webkit-text-fill-color:rgba(245,240,232,.3);}
+select{-webkit-appearance:none;appearance:none;background-image:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘12’ height=‘8’ viewBox=‘0 0 12 8’%3E%3Cpath d=‘M1 1l5 5 5-5’ stroke=’%23c9a84c’ stroke-width=‘1.5’ fill=‘none’ stroke-linecap=‘round’/%3E%3C%2Fsvg%3E”);background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;}
+select option{background:var(–gd);color:var(–cr);}
 input:focus,select:focus,textarea:focus{border-color:var(–go);}
-input::placeholder{color:rgba(245,240,232,.3);}
-select option{background:var(–gd);}
 .btn{display:inline-flex;align-items:center;gap:7px;padding:10px 22px;border:none;border-radius:6px;font-family:‘IM Fell English SC’,serif;font-size:12px;letter-spacing:2px;cursor:pointer;transition:all .2s;}
 .btn-g{background:var(–go);color:var(–gd);font-weight:700;}
 .btn-g:hover{background:var(–gl2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,168,76,.3);}
