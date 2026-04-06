@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masters Pool 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Crimson+Pro:wght@300;400;500&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+<style>
+:root{--gd:#1a3a2a;--gm:#2d5a3d;--gl:#4a7c5a;--cr:#f5f0e8;--cd:#e8e0cc;--go:#c9a84c;--gl2:#e6c97a;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Crimson Pro',Georgia,serif;background:var(--gd);color:var(--cr);min-height:100vh;
+  background-image:radial-gradient(ellipse at 20% 50%,rgba(45,90,61,.4) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(74,124,90,.2) 0%,transparent 50%),repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.012) 40px,rgba(255,255,255,.012) 41px);}
+
+/* AUTH */
+.auth-wrap{max-width:400px;margin:60px auto;padding:0 20px;}
+.auth-logo{text-align:center;margin-bottom:28px;}
+.auth-logo .badge{font-family:‘IM Fell English SC’,serif;font-size:11px;letter-spacing:4px;color:var(–go);display:block;margin-bottom:8px;}
+.auth-logo h1{font-family:‘Playfair Display’,serif;font-size:46px;font-weight:700;color:var(–cr);}
+.auth-logo h1 span{color:var(–go);font-style:italic;}
+.auth-logo::after{content:’’;display:block;width:160px;height:2px;background:linear-gradient(90deg,transparent,var(–go),transparent);margin:14px auto 0;}
+.auth-card{background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.25);border-radius:12px;padding:28px;}
+.auth-card h2{font-family:‘Playfair Display’,serif;font-size:20px;color:var(–go);margin-bottom:20px;}
+.auth-tabs{display:flex;border:1px solid rgba(201,168,76,.3);border-radius:6px;overflow:hidden;margin-bottom:20px;}
+.auth-tab{flex:1;padding:9px;background:transparent;border:none;border-right:1px solid rgba(201,168,76,.3);color:var(–cd);font-family:‘IM Fell English SC’,serif;font-size:12px;letter-spacing:2px;cursor:pointer;transition:all .2s;}
+.auth-tab:last-child{border-right:none;}
+.auth-tab.active{background:var(–go);color:var(–gd);font-weight:700;}
+
+/* SHARED */
+.field{margin-bottom:13px;}
+.field label{display:block;font-family:‘IM Fell English SC’,serif;font-size:11px;letter-spacing:2px;color:var(–go);margin-bottom:5px;opacity:.85;}
+input[type=text],input[type=password],select,textarea{width:100%;background:rgba(0,0,0,.25);border:1px solid rgba(201,168,76,.3);border-radius:6px;padding:9px 13px;color:var(–cr);font-family:‘Crimson Pro’,serif;font-size:15px;outline:none;transition:border-color .2s;}
+input:focus,select:focus,textarea:focus{border-color:var(–go);}
+input::placeholder{color:rgba(245,240,232,.3);}
+select option{background:var(–gd);}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 22px;border:none;border-radius:6px;font-family:‘IM Fell English SC’,serif;font-size:12px;letter-spacing:2px;cursor:pointer;transition:all .2s;}
+.btn-g{background:var(–go);color:var(–gd);font-weight:700;}
+.btn-g:hover{background:var(–gl2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,168,76,.3);}
+.btn-g:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-o{background:transparent;color:var(–go);border:1px solid var(–go);}
+.btn-o:hover{background:rgba(201,168,76,.1);}
+.btn-d{background:rgba(160,30,30,.7);color:#fdd;border:none;}
+.btn-d:hover{background:rgba(160,30,30,.9);}
+.btn-sm{padding:6px 13px;font-size:11px;}
+.bflex{display:flex;gap:10px;flex-wrap:wrap;margin-top:13px;}
+.err-msg{color:#e07070;font-size:14px;margin-top:10px;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.3),transparent);margin:20px 0;}
+.notice{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:6px;padding:11px 15px;font-size:14px;color:var(–cd);margin-bottom:15px;}
+.card{background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:22px;margin-bottom:18px;}
+.spin{display:inline-block;width:18px;height:18px;border:2px solid rgba(201,168,76,.3);border-top-color:var(–go);border-radius:50%;animation:sp .7s linear infinite;}
+@keyframes sp{to{transform:rotate(360deg)}}
+.empty{text-align:center;padding:44px 20px;color:rgba(245,240,232,.4);}
+.empty-i{font-size:40px;margin-bottom:10px;}
+.empty-t{font-family:‘Playfair Display’,serif;font-size:16px;font-style:italic;}
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(80px);background:var(–go);color:var(–gd);padding:10px 24px;border-radius:40px;font-family:‘IM Fell English SC’,serif;font-size:12px;letter-spacing:2px;font-weight:700;transition:transform .3s cubic-bezier(.34,1.56,.64,1);z-index:9999;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* APP */
+.app{display:none;}
+.header{text-align:center;padding:28px 24px 14px;}
+.header::after{content:’’;display:block;width:200px;height:2px;background:linear-gradient(90deg,transparent,var(–go),transparent);margin:12px auto 0;}
+.h-badge{font-family:‘IM Fell English SC’,serif;font-size:11px;letter-spacing:4px;color:var(–go);margin-bottom:6px;}
+.h-title{font-family:‘Playfair Display’,serif;font-size:clamp(26px,5vw,48px);font-weight:700;line-height:1.1;}
+.h-title span{color:var(–go);font-style:italic;}
+.h-sub{font-size:14px;color:var(–cd);margin-top:4px;opacity:.7;letter-spacing:1px;}
+
+/* STATUS BAR */
+.status-bar{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;padding:8px 16px;}
+.spill{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.3);border:1px solid rgba(201,168,76,.2);border-radius:20px;padding:4px 12px;font-size:12px;color:rgba(245,240,232,.6);}
+.dot{width:7px;height:7px;border-radius:50%;background:#888;flex-shrink:0;}
+.dot.g{background:#4caf50;box-shadow:0 0 6px #4caf50;animation:pulse 2s infinite;}
+.dot.y{background:var(–go);}
+.dot.r{background:#e07070;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* TABS */
+.tabs{display:flex;justify-content:center;margin:14px auto 0;max-width:680px;border:1px solid rgba(201,168,76,.3);border-radius:6px;overflow:hidden;}
+.tab{flex:1;padding:10px 10px;background:transparent;border:none;border-right:1px solid rgba(201,168,76,.3);color:var(–cd);font-family:‘IM Fell English SC’,serif;font-size:11px;letter-spacing:1px;cursor:pointer;transition:all .2s;}
+.tab:last-child{border-right:none;}
+.tab:hover{background:rgba(201,168,76,.1);color:var(–gl2);}
+.tab.active{background:var(–go);color:var(–gd);font-weight:700;}
+.tab.admin-t.active{background:rgba(160,30,30,.85);color:#fdd;}
+
+/* MAIN */
+.main{max-width:960px;margin:0 auto;padding:20px 14px 80px;}
+.panel{display:none;}
+.panel.active{display:block;animation:fi .3s ease;}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.stitle{font-family:‘Playfair Display’,serif;font-size:20px;color:var(–go);margin-bottom:15px;display:flex;align-items:center;gap:12px;}
+.stitle::after{content:’’;flex:1;height:1px;background:linear-gradient(90deg,rgba(201,168,76,.4),transparent);}
+
+/* TIER GRID */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px;margin-bottom:16px;}
+.tcrd{background:rgba(0,0,0,.2);border:1px solid rgba(201,168,76,.25);border-radius:8px;overflow:hidden;}
+.thdr{padding:9px 13px;display:flex;justify-content:space-between;align-items:center;}
+.tname{font-family:‘IM Fell English SC’,serif;font-size:11px;letter-spacing:2px;font-weight:700;}
+.trange{font-size:11px;opacity:.7;}
+.tbody{padding:10px 13px;}
+
+/* LEADERBOARD */
+.lb{width:100%;border-collapse:collapse;font-size:14px;}
+.lb th{font-family:‘IM Fell English SC’,serif;font-size:10px;letter-spacing:2px;color:var(–go);padding:8px 10px;text-align:left;border-bottom:1px solid rgba(201,168,76,.3);white-space:nowrap;}
+.lb td{padding:10px 10px;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:middle;}
+.lb tr:last-child td{border-bottom:none;}
+.lb tr:hover td{background:rgba(201,168,76,.04);}
+.rnum{font-family:‘Playfair Display’,serif;font-size:17px;font-weight:700;color:var(–go);}
+.r1 .rnum{color:#FFD700;font-size:20px;}.r2 .rnum{color:#C0C0C0;}.r3 .rnum{color:#CD7F32;}
+.ename{font-family:‘Playfair Display’,serif;font-size:15px;font-weight:600;}
+.you-badge{display:inline-block;background:rgba(201,168,76,.2);color:var(–go);font-size:10px;font-family:‘IM Fell English SC’,serif;letter-spacing:1px;padding:1px 6px;border-radius:3px;margin-left:6px;vertical-align:middle;}
+.epicks{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px;}
+.ps{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:500;white-space:nowrap;}
+.psu{background:rgba(111,190,138,.2);color:#6fbe8a;}
+.pso{background:rgba(224,112,112,.15);color:#e07070;}
+.pse{background:rgba(245,240,232,.1);color:var(–cd);}
+.psc{background:rgba(120,120,120,.2);color:#999;text-decoration:line-through;}
+.stot{font-family:‘Playfair Display’,serif;font-size:18px;font-weight:700;text-align:right;}
+.su{color:#6fbe8a;}.so{color:#e07070;}.se{color:var(–cr);}
+.hidden-picks{font-size:12px;color:rgba(245,240,232,.3);font-style:italic;margin-top:3px;}
+
+/* SCORE ENTRY */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:9px;margin-bottom:15px;}
+.srow{display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.2);border:1px solid rgba(201,168,76,.15);border-radius:6px;padding:8px 11px;}
+.spname{flex:1;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sinp{width:64px !important;padding:5px 7px !important;font-size:14px !important;text-align:center;}
+.ctgl{width:26px;height:26px;border-radius:4px;border:1px solid rgba(201,168,76,.3);background:transparent;color:var(–cr);cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
+.ctgl.cut{background:rgba(120,120,120,.4);color:#aaa;border-color:#666;}
+
+/* PROFILE */
+.profile-card{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:20px;margin-bottom:18px;}
+.profile-name{font-family:‘Playfair Display’,serif;font-size:22px;color:var(–cr);margin-bottom:4px;}
+.profile-meta{font-size:13px;color:rgba(245,240,232,.45);}
+
+/* FIELD */
+.ftbl{width:100%;border-collapse:collapse;font-size:13px;}
+.ftbl th{font-family:‘IM Fell English SC’,serif;font-size:10px;letter-spacing:2px;color:var(–go);padding:7px 11px;border-bottom:1px solid rgba(201,168,76,.3);text-align:left;}
+.ftbl td{padding:7px 11px;border-bottom:1px solid rgba(255,255,255,.04);}
+.ftbl tr:hover td{background:rgba(201,168,76,.04);}
+.obadge{display:inline-block;padding:2px 7px;border-radius:10px;font-size:11px;font-weight:600;}
+.t1{background:#1a3d22;color:#a8e6bc;}.t2{background:#1e3050;color:#a8c8e6;}.t3{background:#3d2a10;color:#e6c87a;}.t4{background:#2a1a40;color:#c8a8e6;}
+
+.lock-banner{background:rgba(180,100,0,.2);border:1px solid rgba(201,168,76,.4);border-radius:8px;padding:12px 16px;text-align:center;font-size:15px;color:var(–gl2);margin-bottom:16px;}
+.my-entry-box{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-radius:8px;padding:14px 18px;margin-bottom:16px;}
+.me-label{font-family:‘IM Fell English SC’,serif;font-size:10px;letter-spacing:3px;color:var(–go);margin-bottom:8px;}
+
+/* ADMIN ENTRIES LIST */
+.entry-admin-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.entry-admin-row:last-child{border-bottom:none;}
+</style>
+
+</head>
+<body>
+
+<!-- ══ AUTH SCREEN ══ -->
+
+<div id="auth-screen">
+  <div class="auth-wrap">
+    <div class="auth-logo">
+      <span class="badge">⛳ Augusta National · April 2026</span>
+      <h1>Masters <span>Pool</span></h1>
+    </div>
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="switchAuth('login')">Sign In</button>
+        <button class="auth-tab" id="tab-register" onclick="switchAuth('register')">Create Account</button>
+      </div>
+
+```
+  <!-- LOGIN -->
+  <div id="form-login">
+    <div class="field"><label>Username</label><input type="text" id="login-user" placeholder="Your username" autocomplete="username"></div>
+    <div class="field"><label>Password</label><input type="password" id="login-pass" placeholder="Your password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button class="btn btn-g" style="width:100%;" onclick="doLogin()">Sign In ⛳</button>
+    <div class="err-msg" id="login-err" style="display:none;"></div>
+  </div>
+
+  <!-- REGISTER -->
+  <div id="form-register" style="display:none;">
+    <div class="notice" style="font-size:13px;">Pick a username your group will recognize. You can only create one account.</div>
+    <div class="field"><label>Username</label><input type="text" id="reg-user" placeholder="e.g. NickB" autocomplete="username"></div>
+    <div class="field"><label>Password</label><input type="password" id="reg-pass" placeholder="Choose a password" autocomplete="new-password"></div>
+    <div class="field"><label>Confirm Password</label><input type="password" id="reg-pass2" placeholder="Confirm password" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()"></div>
+    <button class="btn btn-g" style="width:100%;" onclick="doRegister()">Create Account</button>
+    <div class="err-msg" id="reg-err" style="display:none;"></div>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ══ MAIN APP ══ -->
+
+<div class="app" id="app">
+  <div class="header">
+    <div class="h-badge">⛳ Augusta National · April 2026</div>
+    <div class="h-title">Masters <span>Pool</span></div>
+    <div class="h-sub">Tiered Picks · Best 4 Daily · Score to Par</div>
+  </div>
+
+  <div class="status-bar">
+    <div class="spill"><span class="dot g"></span>Live</div>
+    <div class="spill" id="lock-pill"><span class="dot y"></span>Picks open</div>
+    <div class="spill" id="count-pill"><span class="dot"></span>0 entries</div>
+    <div class="spill" id="lb-refresh-pill"><span class="dot" id="lb-dot"></span><span id="lb-refresh-label">—</span></div>
+  </div>
+
+  <div style="display:flex;justify-content:center;">
+    <div class="tabs" id="main-tabs">
+      <button class="tab active" onclick="showTab('leaderboard',this)">Leaderboard</button>
+      <button class="tab" onclick="showTab('picks',this)">My Picks</button>
+      <button class="tab" onclick="showTab('rules',this)">Rules</button>
+      <button class="tab" onclick="showTab('field',this)">Field</button>
+      <button class="tab" onclick="showTab('profile',this)">Profile</button>
+      <button class="tab admin-t" id="admin-tab" style="display:none;" onclick="showTab('admin',this)">Admin</button>
+    </div>
+  </div>
+
+  <div class="main">
+
+```
+<!-- LEADERBOARD -->
+<div id="panel-leaderboard" class="panel active">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+    <div class="stitle" style="margin:0;flex:1;">Pool Standings</div>
+    <button class="btn btn-o btn-sm" onclick="loadLB()">⟳ Refresh</button>
+  </div>
+  <div class="card" id="lb-container"><div class="empty"><div class="spin"></div></div></div>
+</div>
+
+<!-- MY PICKS -->
+<div id="panel-picks" class="panel">
+  <div id="lock-banner"></div>
+  <div id="my-entry-display"></div>
+  <div id="picks-form-wrap">
+    <div class="stitle">Your Picks</div>
+    <div class="notice" style="border-color:rgba(201,168,76,.5);">
+      <strong style="color:var(--go);">How it works:</strong> Pick 8 golfers — 3 from Tier 1, 2 from Tier 2, 2 from Tier 3, 1 from Tier 4. Your best 4 scores count each day. Missed-cut players score +10 on R3 &amp; R4. Lowest total after Sunday wins. Ties broken by closest prediction to winning score.
+    </div>
+    <div class="card">
+      <div class="tgrid" id="picks-tiers"></div>
+      <div style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.25);border-radius:8px;padding:16px;margin-bottom:16px;">
+        <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--go);margin-bottom:6px;">🎯 Tiebreaker</div>
+        <div style="font-size:14px;color:var(--cd);margin-bottom:12px;">Predict the winning score to par (e.g. <strong>-18</strong>). Closest wins any tie.</div>
+        <div class="field" style="max-width:180px;margin:0;">
+          <label>Winning Score (to par)</label>
+          <input type="text" id="tiebreaker" placeholder="e.g. -18">
+        </div>
+      </div>
+      <div class="bflex">
+        <button class="btn btn-g" id="submit-btn" onclick="submitPicks()">⛳ Save My Picks</button>
+      </div>
+      <div class="err-msg" id="picks-err" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- RULES -->
+<div id="panel-rules" class="panel">
+  <div class="stitle">Pool Rules</div>
+  <div class="card">
+    <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--go);margin-bottom:12px;">📋 Format</div>
+    <div style="font-size:15px;color:var(--cd);line-height:1.8;">Each entry picks <strong style="color:var(--cr);">8 golfers</strong> across 4 tiers:
+      <ul style="margin:10px 0 10px 20px;display:flex;flex-direction:column;gap:5px;">
+        <li><strong style="color:var(--go);">Tier 1 — Favorites</strong> · Pick 3</li>
+        <li><strong style="color:var(--go);">Tier 2 — Contenders</strong> · Pick 2</li>
+        <li><strong style="color:var(--go);">Tier 3 — Dark Horses</strong> · Pick 2</li>
+        <li><strong style="color:var(--go);">Tier 4 — Longshots</strong> · Pick 1</li>
+      </ul>
+      You cannot pick the same golfer more than once.
+    </div>
+  </div>
+  <div class="card">
+    <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--go);margin-bottom:12px;">🏌️ Daily Scoring</div>
+    <div style="font-size:15px;color:var(--cd);line-height:1.8;">Each day, your <strong style="color:var(--cr);">best 4 scores</strong> of your 8 golfers count. The 4 worst are dropped. Your final score is the sum of your best-4 daily totals across all four rounds. <strong style="color:var(--cr);">Lowest after Sunday wins.</strong></div>
+  </div>
+  <div class="card">
+    <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--go);margin-bottom:12px;">✂️ The Cut</div>
+    <div style="font-size:15px;color:var(--cd);line-height:1.8;">Golfers who miss the cut automatically score <strong style="color:#e07070;">+10</strong> for Saturday and Sunday. Those scores still count toward your daily calculation — but they'll hurt. Strategy tip: having reliable cut-makers matters.</div>
+  </div>
+  <div class="card">
+    <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--go);margin-bottom:12px;">🎯 Tiebreaker</div>
+    <div style="font-size:15px;color:var(--cd);line-height:1.8;">Ties broken by <strong style="color:var(--cr);">closest prediction to the winning score to par</strong>. You submit this with your picks.</div>
+  </div>
+  <div class="card">
+    <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--go);margin-bottom:12px;">🔒 Picks &amp; Privacy</div>
+    <div style="font-size:15px;color:var(--cd);line-height:1.8;">Picks lock at <strong style="color:var(--cr);">Thursday April 9, 9:00 AM ET</strong>. You can update your picks any time before then. <strong style="color:var(--cr);">Other people's picks are hidden until the tournament starts.</strong> After lock, everyone's full picks are visible on the leaderboard.</div>
+  </div>
+</div>
+
+<!-- FIELD -->
+<div id="panel-field" class="panel">
+  <div class="stitle">2026 Masters Field & Tiers</div>
+  <div class="notice">Tiered by DraftKings odds as of April 6, 2026. Tier 1 = biggest favorites.</div>
+  <div id="tier-display"></div>
+  <div class="divider"></div>
+  <div class="stitle" style="font-size:17px;">Full Field</div>
+  <div class="card" style="padding:0;overflow:hidden;">
+    <table class="ftbl" id="field-table"></table>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div id="panel-profile" class="panel">
+  <div class="stitle">My Profile</div>
+  <div class="profile-card" id="profile-info"></div>
+  <div class="stitle" style="font-size:17px;">My Entry</div>
+  <div id="profile-entry"><div class="empty"><div class="empty-t" style="font-size:15px;">No picks yet — go to My Picks.</div></div></div>
+  <div class="divider"></div>
+  <div class="card" style="max-width:340px;">
+    <div class="stitle" style="font-size:16px;margin-bottom:12px;">Change Password</div>
+    <div class="field"><label>Current Password</label><input type="password" id="pw-old" placeholder="Current password"></div>
+    <div class="field"><label>New Password</label><input type="password" id="pw-new" placeholder="New password"></div>
+    <button class="btn btn-o btn-sm" onclick="changePassword()">Update Password</button>
+    <div class="err-msg" id="pw-err" style="display:none;"></div>
+  </div>
+  <div class="bflex" style="margin-top:8px;">
+    <button class="btn btn-d btn-sm" onclick="doLogout()">Sign Out</button>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="panel-admin" class="panel">
+  <div class="stitle">Admin Panel</div>
+
+  <!-- Round Score Entry -->
+  <div class="stitle" style="font-size:17px;">Score Entry by Round</div>
+  <div class="notice">Enter each golfer's round score to par. Toggle ✂ for missed cut — auto-applies +10 on R3/R4.</div>
+  <div class="card">
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+      <button class="btn btn-sm" id="rb1" onclick="setRound(1)" style="background:var(--go);color:var(--gd);font-family:'IM Fell English SC',serif;letter-spacing:1px;border:none;">R1 Thu</button>
+      <button class="btn btn-o btn-sm" id="rb2" onclick="setRound(2)">R2 Fri</button>
+      <button class="btn btn-o btn-sm" id="rb3" onclick="setRound(3)">R3 Sat</button>
+      <button class="btn btn-o btn-sm" id="rb4" onclick="setRound(4)">R4 Sun</button>
+    </div>
+    <div class="sgrid" id="score-grid"><div class="empty"><div class="empty-t" style="font-size:14px;">No entries yet.</div></div></div>
+    <button class="btn btn-g" onclick="saveScores()">💾 Save Round Scores</button>
+  </div>
+
+  <!-- ESPN Auto-Refresh -->
+  <div class="divider"></div>
+  <div class="stitle" style="font-size:17px;">Live Scoring — ESPN</div>
+  <div class="card">
+    <div style="font-size:14px;color:var(--cd);margin-bottom:10px;">Auto-refreshes every <strong style="color:var(--go);">3 minutes</strong> during tournament hours. No API key needed.</div>
+    <div id="auto-refresh-status" style="display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:13px;color:rgba(245,240,232,.55);">
+      <span class="dot" id="refresh-dot"></span><span id="refresh-label">Auto-refresh inactive</span>
+    </div>
+    <div class="notice" style="font-size:13px;margin-bottom:12px;">⚠️ ESPN's API is unofficial — may occasionally be unavailable. Manual entry is the fallback.</div>
+    <div class="bflex">
+      <button class="btn btn-g btn-sm" onclick="fetchESPN(false)">⟳ Fetch Now</button>
+      <button class="btn btn-o btn-sm" id="auto-toggle-btn" onclick="toggleAutoRefresh()">Pause Auto-Refresh</button>
+    </div>
+    <div id="espn-status" style="margin-top:10px;font-size:13px;color:rgba(245,240,232,.5);"></div>
+  </div>
+
+  <!-- Manage Entries -->
+  <div class="divider"></div>
+  <div class="stitle" style="font-size:17px;">Manage Entries</div>
+  <div class="card" id="admin-entries-list"><div class="empty"><div class="spin"></div></div></div>
+
+  <!-- Lock Toggle -->
+  <div class="divider"></div>
+  <div class="stitle" style="font-size:17px;">Picks Lock</div>
+  <div class="card">
+    <div style="font-size:15px;color:var(--cd);margin-bottom:12px;" id="lock-status"></div>
+    <button class="btn btn-o btn-sm" onclick="toggleLock()" id="lock-btn">Toggle</button>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════
+//  CONFIG — hardcoded
+// ══════════════════════════════════════
+const SB  = 'https://xorvmfsviqjpiuzxtrjw.supabase.co';
+const SK  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhvcnZtZnN2aXFqcGl1enh0cmp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0ODAxNTgsImV4cCI6MjA5MTA1NjE1OH0.c4jmXxyY21R-7OgAO9OQ-FMI6R1a1f0LGe5BVgaLv9M';
+const ADMIN_USERNAME = 'nick'; // case-insensitive
+
+// ══════════════════════════════════════
+//  FIELD DATA — DraftKings Apr 6 2026
+// ══════════════════════════════════════
+const FIELD=[
+  {n:"Scottie Scheffler",o:410},{n:"Jon Rahm",o:850},{n:"Rory McIlroy",o:1025},
+  {n:"Bryson DeChambeau",o:1100},{n:"Ludvig Aberg",o:1750},{n:"Xander Schauffele",o:1850},
+  {n:"Cameron Young",o:2400},{n:"Tommy Fleetwood",o:2500},{n:"Matt Fitzpatrick",o:2600},
+  {n:"Collin Morikawa",o:3100},{n:"Justin Rose",o:3600},{n:"Jordan Spieth",o:3800},
+  {n:"Brooks Koepka",o:3800},{n:"Hideki Matsuyama",o:3900},{n:"Robert MacIntyre",o:4000},
+  {n:"Russell Henley",o:4200},{n:"Chris Gotterup",o:4300},{n:"Patrick Reed",o:4500},
+  {n:"Viktor Hovland",o:4600},{n:"Si Woo Kim",o:4700},{n:"Min Woo Lee",o:5400},
+  {n:"Justin Thomas",o:5500},{n:"Patrick Cantlay",o:5700},{n:"Adam Scott",o:6200},
+  {n:"Akshay Bhatia",o:6600},{n:"Sepp Straka",o:6700},{n:"Jason Day",o:6900},
+  {n:"Jake Knapp",o:6900},{n:"Tyrrell Hatton",o:6900},{n:"Shane Lowry",o:7000},
+  {n:"Sam Burns",o:7200},{n:"Corey Conners",o:8200},{n:"Nicolai Hojgaard",o:8400},
+  {n:"Kurt Kitayama",o:8800},{n:"J.J. Spaun",o:8800},{n:"Jacob Bridgeman",o:9400},
+  {n:"Maverick McNealy",o:9800},{n:"Cameron Smith",o:10000},{n:"Harris English",o:10500},
+  {n:"Gary Woodland",o:11000},{n:"Ben Griffin",o:11000},{n:"Daniel Berger",o:11000},
+  {n:"Max Homa",o:11500},{n:"Sung-Jae Im",o:12000},{n:"Rasmus Hojgaard",o:13000},
+  {n:"Keegan Bradley",o:14000},{n:"Harry Hall",o:16000},{n:"Marco Penge",o:16000},
+  {n:"Alex Noren",o:16500},{n:"Ryan Gerard",o:17000},{n:"Nick Taylor",o:19500},
+  {n:"Aaron Rai",o:19500},{n:"Brian Harman",o:20000},{n:"Sam Stevens",o:21000},
+  {n:"Sergio Garcia",o:22500},{n:"Ryan Fox",o:22500},{n:"Wyndham Clark",o:22500},
+  {n:"Max Greyserman",o:23000},{n:"Dustin Johnson",o:24000},{n:"Casey Jarvis",o:25000},
+  {n:"Carlos Ortiz",o:26000},{n:"Haotong Li",o:28000},{n:"Tom McKibbin",o:28000},
+  {n:"Nico Echavarria",o:31000},{n:"Kristoffer Reitan",o:31000},
+  {n:"Rasmus Neergaard-Petersen",o:32500},{n:"John Keefer",o:34000},
+  {n:"Michael Kim",o:35000},{n:"Andrew Novak",o:40000},{n:"Aldrich Potgieter",o:41000},
+  {n:"Michael Brennan",o:43000},{n:"Sami Valimaki",o:52500},{n:"Davis Riley",o:60000},
+  {n:"Charl Schwartzel",o:60000},{n:"Bubba Watson",o:60000},{n:"Zach Johnson",o:60000},
+];
+const TIER_META=[
+  {label:"Tier 1 — Favorites",  color:"#1a4c28",badge:"t1",picks:3},
+  {label:"Tier 2 — Contenders", color:"#1a3455",badge:"t2",picks:2},
+  {label:"Tier 3 — Dark Horses",color:"#4a2e0a",badge:"t3",picks:2},
+  {label:"Tier 4 — Longshots",  color:"#32185a",badge:"t4",picks:1},
+];
+
+// ══════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════
+let TIERS=[], currentUser=null, LOCKED=false, activeRound=1;
+const LOCK_TIME=new Date('2026-04-09T13:00:00Z');
+
+function buildTiers(){
+  const p=FIELD.filter(x=>x.o<=100000), n=4, per=Math.ceil(p.length/n);
+  return Array.from({length:n},(_,i)=>({...TIER_META[i],name:`Tier ${i+1}`,players:p.slice(i*per,Math.min((i+1)*per,p.length))}));
+}
+const locked=()=>LOCKED||new Date()>=LOCK_TIME;
+const isAdmin=()=>currentUser&&currentUser.username.toLowerCase()===ADMIN_USERNAME.toLowerCase();
+const fo=n=>'+'+n.toLocaleString();
+
+// ══════════════════════════════════════
+//  SUPABASE HELPERS
+// ══════════════════════════════════════
+const hdrs=()=>({'apikey':SK,'Authorization':'Bearer '+SK,'Content-Type':'application/json'});
+
+async function sbGet(tbl,q=''){
+  const r=await fetch(`${SB}/rest/v1/${tbl}${q}`,{headers:hdrs()});
+  if(!r.ok)throw new Error(await r.text());
+  return r.json();
+}
+async function sbPost(tbl,body){
+  const r=await fetch(`${SB}/rest/v1/${tbl}`,{method:'POST',headers:{...hdrs(),'Prefer':'return=representation'},body:JSON.stringify(body)});
+  if(!r.ok)throw new Error(await r.text());
+  return r.json();
+}
+async function sbUpsert(tbl,body,conflict){
+  const r=await fetch(`${SB}/rest/v1/${tbl}?on_conflict=${conflict}`,{method:'POST',headers:{...hdrs(),'Prefer':'resolution=merge-duplicates,return=representation'},body:JSON.stringify(body)});
+  if(!r.ok)throw new Error(await r.text());
+  return r.json();
+}
+async function sbPatch(tbl,filter,body){
+  const r=await fetch(`${SB}/rest/v1/${tbl}?${filter}`,{method:'PATCH',headers:{...hdrs(),'Prefer':'return=representation'},body:JSON.stringify(body)});
+  if(!r.ok)throw new Error(await r.text());
+  return r.json();
+}
+async function sbDel(tbl,filter){
+  const r=await fetch(`${SB}/rest/v1/${tbl}?${filter}`,{method:'DELETE',headers:hdrs()});
+  if(!r.ok)throw new Error(await r.text());
+}
+
+// ══════════════════════════════════════
+//  SIMPLE HASH (SHA-256 via SubtleCrypto)
+// ══════════════════════════════════════
+async function hashPassword(pw){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+// ══════════════════════════════════════
+//  AUTH
+// ══════════════════════════════════════
+function switchAuth(mode){
+  document.getElementById('form-login').style.display=mode==='login'?'block':'none';
+  document.getElementById('form-register').style.display=mode==='register'?'block':'none';
+  document.getElementById('tab-login').classList.toggle('active',mode==='login');
+  document.getElementById('tab-register').classList.toggle('active',mode==='register');
+}
+
+async function doLogin(){
+  const user=document.getElementById('login-user').value.trim();
+  const pass=document.getElementById('login-pass').value;
+  const err=document.getElementById('login-err');
+  err.style.display='none';
+  if(!user||!pass){err.textContent='Enter username and password.';err.style.display='block';return;}
+  try{
+    const hash=await hashPassword(pass);
+    const rows=await sbGet('users',`?username=eq.${encodeURIComponent(user.toLowerCase())}&password_hash=eq.${hash}&select=*`);
+    if(!rows.length){err.textContent='Incorrect username or password.';err.style.display='block';return;}
+    currentUser=rows[0];
+    localStorage.setItem('mp26_user',JSON.stringify(currentUser));
+    launchApp();
+  }catch(e){err.textContent='Error: '+e.message;err.style.display='block';}
+}
+
+async function doRegister(){
+  const user=document.getElementById('reg-user').value.trim();
+  const pass=document.getElementById('reg-pass').value;
+  const pass2=document.getElementById('reg-pass2').value;
+  const err=document.getElementById('reg-err');
+  err.style.display='none';
+  if(!user||!pass){err.textContent='All fields are required.';err.style.display='block';return;}
+  if(pass!==pass2){err.textContent='Passwords do not match.';err.style.display='block';return;}
+  if(pass.length<6){err.textContent='Password must be at least 6 characters.';err.style.display='block';return;}
+  if(!/^[a-zA-Z0-9_]+$/.test(user)){err.textContent='Username can only contain letters, numbers, and underscores.';err.style.display='block';return;}
+  try{
+    const hash=await hashPassword(pass);
+    const existing=await sbGet('users',`?username=eq.${encodeURIComponent(user.toLowerCase())}&select=id`);
+    if(existing.length){err.textContent='That username is taken.';err.style.display='block';return;}
+    const rows=await sbPost('users',{username:user.toLowerCase(),display_name:user,password_hash:hash});
+    currentUser=rows[0];
+    localStorage.setItem('mp26_user',JSON.stringify(currentUser));
+    launchApp();
+  }catch(e){err.textContent='Error: '+e.message;err.style.display='block';}
+}
+
+function doLogout(){
+  localStorage.removeItem('mp26_user');
+  currentUser=null;
+  document.getElementById('app').style.display='none';
+  document.getElementById('auth-screen').style.display='block';
+  toast('Signed out');
+}
+
+async function changePassword(){
+  const oldPw=document.getElementById('pw-old').value;
+  const newPw=document.getElementById('pw-new').value;
+  const err=document.getElementById('pw-err');
+  err.style.display='none';
+  if(!oldPw||!newPw){err.textContent='Fill in both fields.';err.style.display='block';return;}
+  if(newPw.length<6){err.textContent='New password must be at least 6 characters.';err.style.display='block';return;}
+  try{
+    const oldHash=await hashPassword(oldPw);
+    if(oldHash!==currentUser.password_hash){err.textContent='Current password is incorrect.';err.style.display='block';return;}
+    const newHash=await hashPassword(newPw);
+    await sbPatch('users',`id=eq.${currentUser.id}`,{password_hash:newHash});
+    currentUser.password_hash=newHash;
+    localStorage.setItem('mp26_user',JSON.stringify(currentUser));
+    document.getElementById('pw-old').value='';
+    document.getElementById('pw-new').value='';
+    toast('Password updated ✓');
+  }catch(e){err.textContent='Error: '+e.message;err.style.display='block';}
+}
+
+// ══════════════════════════════════════
+//  LAUNCH
+// ══════════════════════════════════════
+function launchApp(){
+  TIERS=buildTiers();
+  document.getElementById('auth-screen').style.display='none';
+  document.getElementById('app').style.display='block';
+  // Show admin tab only for admin
+  if(isAdmin()) document.getElementById('admin-tab').style.display='';
+  renderPicksForm();
+  renderField();
+  loadLB();
+  loadMyEntry();
+  renderProfile();
+  tickLock();
+  setInterval(tickLock,30000);
+  setInterval(()=>{if(document.getElementById('panel-leaderboard').classList.contains('active'))loadLB();},30000);
+  startAutoRefresh();
+}
+
+// ══════════════════════════════════════
+//  TABS & LOCK
+// ══════════════════════════════════════
+function showTab(name,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  if(el)el.classList.add('active');
+  if(name==='leaderboard')loadLB();
+  if(name==='picks'){renderPicksForm();loadMyEntry();}
+  if(name==='field')renderField();
+  if(name==='profile'){renderProfile();loadProfileEntry();}
+  if(name==='admin'){loadScoreGrid();loadAdminEntries();updateLockStatusAdmin();}
+}
+
+function tickLock(){
+  const lk=locked();
+  const pill=document.getElementById('lock-pill');
+  const banner=document.getElementById('lock-banner');
+  const btn=document.getElementById('submit-btn');
+  const wrap=document.getElementById('picks-form-wrap');
+  if(lk){
+    pill.innerHTML='<span class="dot r"></span>Picks locked';
+    if(banner)banner.innerHTML='<div class="lock-banner">🔒 Picks are locked — tournament is underway. Good luck!</div>';
+    if(btn){btn.disabled=true;btn.textContent='🔒 Picks Locked';}
+    if(wrap){wrap.style.opacity='.5';wrap.style.pointerEvents='none';}
+  }else{
+    const ms=LOCK_TIME-new Date(),h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000);
+    pill.innerHTML=`<span class="dot y"></span>Locks in ${h}h ${m}m`;
+    if(banner)banner.innerHTML='';
+    if(btn){btn.disabled=false;btn.textContent='⛳ Save My Picks';}
+    if(wrap){wrap.style.opacity='1';wrap.style.pointerEvents='auto';}
+  }
+}
+function toggleLock(){LOCKED=!LOCKED;tickLock();updateLockStatusAdmin();toast(LOCKED?'Picks locked':'Picks unlocked');}
+function updateLockStatusAdmin(){
+  const ls=document.getElementById('lock-status');
+  const lb=document.getElementById('lock-btn');
+  if(ls)ls.textContent=locked()?'🔒 Picks are currently locked.':'🔓 Picks are currently open.';
+  if(lb)lb.textContent=locked()?'Force Unlock':'Lock Picks Now';
+}
+
+// ══════════════════════════════════════
+//  PICKS FORM
+// ══════════════════════════════════════
+function renderPicksForm(){
+  const c=document.getElementById('picks-tiers');
+  if(!c)return;
+  c.innerHTML=TIERS.map((t,i)=>{
+    const rng=t.players.length?`${fo(t.players[0].o)} – ${fo(t.players[t.players.length-1].o)}`:'';
+    const sels=Array.from({length:t.picks},(_,k)=>`
+      <div style="margin-bottom:${k<t.picks-1?'8px':'0'};">
+        <div style="font-family:'IM Fell English SC',serif;font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.7);margin-bottom:4px;">Pick ${k+1}</div>
+        <select id="pt${i}_${k}">
+          <option value="">— Select —</option>
+          ${t.players.map(p=>`<option value="${p.n}">${p.n} (${fo(p.o)})</option>`).join('')}
+        </select>
+      </div>`).join('');
+    return `<div class="tcrd"><div class="thdr" style="background:${t.color};"><span class="tname" style="color:#eee;">${t.label}</span><span class="trange" style="color:#ccc;">${rng} · Pick ${t.picks}</span></div><div class="tbody">${sels}</div></div>`;
+  }).join('');
+}
+
+async function loadMyEntry(){
+  if(!currentUser)return;
+  try{
+    const rows=await sbGet('entries',`?user_id=eq.${currentUser.id}&select=*`);
+    if(!rows.length){document.getElementById('my-entry-display').innerHTML='';return;}
+    const e=rows[0];
+    // Pre-fill form
+    Object.entries(e.picks).forEach(([tname,players])=>{
+      const ti=TIERS.findIndex(t=>t.name===tname);
+      if(ti<0)return;
+      const ps=Array.isArray(players)?players:[players];
+      ps.forEach((p,k)=>{const sel=document.getElementById(`pt${ti}_${k}`);if(sel)sel.value=p;});
+    });
+    if(e.tiebreaker!==null&&e.tiebreaker!==undefined){
+      const tb=document.getElementById('tiebreaker');
+      if(tb)tb.value=e.tiebreaker>=0?'+'+e.tiebreaker:e.tiebreaker;
+    }
+    // Show current picks summary
+    const rows2=Object.entries(e.picks).map(([t,ps])=>{
+      const arr=Array.isArray(ps)?ps:[ps];
+      return arr.map((p,k)=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:14px;"><span style="opacity:.55;">${t} — Pick ${k+1}</span><strong>${p}</strong></div>`).join('');
+    }).join('');
+    const tb=e.tiebreaker!==null&&e.tiebreaker!==undefined?`<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:14px;border-top:1px solid rgba(201,168,76,.2);margin-top:4px;"><span style="opacity:.55;">🎯 Tiebreaker</span><strong>${e.tiebreaker>=0?'+'+e.tiebreaker:e.tiebreaker}</strong></div>`:'';
+    document.getElementById('my-entry-display').innerHTML=`<div class="my-entry-box"><div class="me-label">Your Current Entry</div>${rows2}${tb}<div style="margin-top:8px;font-size:13px;opacity:.4;">${locked()?'Picks are locked.':'Edit below and save to update.'}</div></div>`;
+  }catch(e){console.error(e);}
+}
+
+async function submitPicks(){
+  if(locked()){toast('Picks are locked');return;}
+  const err=document.getElementById('picks-err');
+  err.style.display='none';
+  const picks={};const allChosen=[];
+  for(let i=0;i<TIERS.length;i++){
+    const chosen=[];
+    for(let k=0;k<TIERS[i].picks;k++){
+      const s=document.getElementById(`pt${i}_${k}`);
+      if(!s||!s.value){err.textContent=`Make all ${TIERS[i].picks} picks for ${TIERS[i].label}.`;err.style.display='block';return;}
+      if(chosen.includes(s.value)){err.textContent=`You picked ${s.value} twice in ${TIERS[i].label}.`;err.style.display='block';return;}
+      if(allChosen.includes(s.value)){err.textContent=`${s.value} is already picked in another tier.`;err.style.display='block';return;}
+      chosen.push(s.value);allChosen.push(s.value);
+    }
+    picks[TIERS[i].name]=chosen;
+  }
+  const tbRaw=document.getElementById('tiebreaker').value.trim();
+  if(!tbRaw){err.textContent='Enter a tiebreaker prediction (e.g. -18).';err.style.display='block';return;}
+  const tb=parseInt(tbRaw.replace(/^\+/,''));
+  if(isNaN(tb)){err.textContent='Tiebreaker must be a number like -18.';err.style.display='block';return;}
+  const btn=document.getElementById('submit-btn');
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span> Saving…';
+  try{
+    // Check if entry exists for this user
+    const existing=await sbGet('entries',`?user_id=eq.${currentUser.id}&select=id`);
+    if(existing.length){
+      await sbPatch('entries',`user_id=eq.${currentUser.id}`,{picks,tiebreaker:tb});
+    }else{
+      await sbPost('entries',{user_id:currentUser.id,display_name:currentUser.display_name,picks,tiebreaker:tb});
+    }
+    toast('Picks saved ✓');
+    loadMyEntry();
+    loadLB();
+  }catch(e){err.textContent='Error: '+e.message;err.style.display='block';}
+  finally{btn.disabled=false;btn.textContent='⛳ Save My Picks';}
+}
+
+// ══════════════════════════════════════
+//  LEADERBOARD
+// ══════════════════════════════════════
+const parseSc=v=>{if(!v&&v!==0)return null;v=v.toString().trim().toUpperCase();if(v==='E'||v==='0')return 0;if(v==='CUT'||v===''||v==='-')return null;const n=parseInt(v.replace(/^\+/,''));return isNaN(n)?null:n;};
+const fmtSc=n=>n===null?'—':n===0?'E':n>0?`+${n}`:`${n}`;
+const fmtTot=n=>n===0?'E':n>0?`+${n}`:`${n}`;
+const totCls=n=>n<0?'su':n>0?'so':'se';
+const psCls=(n,cut)=>cut?'psc':n===null?'pse':n<0?'psu':n>0?'pso':'pse';
+
+function calcScore(players,sm){
+  const rounds=[1,2,3,4];
+  const pr={};
+  players.forEach(p=>{
+    const sc=sm[p]||{r1:null,r2:null,r3:null,r4:null,is_cut:false};
+    pr[p]={
+      r1:parseSc(sc.r1),
+      r2:parseSc(sc.r2),
+      r3:sc.is_cut?(parseSc(sc.r3)!==null?parseSc(sc.r3):10):parseSc(sc.r3),
+      r4:sc.is_cut?(parseSc(sc.r4)!==null?parseSc(sc.r4):10):parseSc(sc.r4),
+      is_cut:sc.is_cut
+    };
+  });
+  let total=0;const rTotals=[];
+  rounds.forEach(r=>{
+    const rk='r'+r;
+    const day=players.map(p=>({p,v:pr[p][rk]})).filter(x=>x.v!==null).sort((a,b)=>a.v-b.v);
+    if(!day.length){rTotals.push(null);return;}
+    const best4=day.slice(0,4);
+    const dt=best4.reduce((s,x)=>s+x.v,0);
+    total+=dt;
+    rTotals.push({total:dt,best:best4.map(x=>x.p)});
+  });
+  return{total,rTotals,pr};
+}
+
+async function loadLB(){
+  const c=document.getElementById('lb-container');
+  try{
+    const[entries,scores]=await Promise.all([
+      sbGet('entries','?select=*&order=created_at.asc'),
+      sbGet('scores','?select=*')
+    ]);
+    const sm={};scores.forEach(s=>sm[s.player]=s);
+    document.getElementById('count-pill').innerHTML=`<span class="dot"></span>${entries.length} entr${entries.length===1?'y':'ies'}`;
+    if(!entries.length){c.innerHTML='<div class="empty"><div class="empty-i">🏆</div><div class="empty-t">No entries yet.</div></div>';return;}
+
+    const hasRound=[1,2,3,4].map(r=>scores.some(s=>parseSc(s['r'+r])!==null));
+    const picksVisible=locked(); // hide picks until lock
+
+    const ranked=entries.map(e=>{
+      const players=Object.values(e.picks).flatMap(v=>Array.isArray(v)?v:[v]);
+      const{total,rTotals,pr}=calcScore(players,sm);
+      return{...e,players,total,rTotals,pr};
+    }).sort((a,b)=>a.total-b.total);
+
+    let html=`<table class="lb"><thead><tr><th>Pos</th><th>Entrant</th>`;
+    [1,2,3,4].forEach((r,i)=>{if(hasRound[i])html+=`<th style="text-align:right">R${r}</th>`;});
+    html+=`<th style="text-align:right">Total</th></tr></thead><tbody>`;
+
+    ranked.forEach((e,idx)=>{
+      const isMe=currentUser&&e.user_id===currentUser.id;
+      const showPicks=picksVisible||isMe||isAdmin();
+      let picksHtml='';
+      if(showPicks){
+        picksHtml=e.players.map(p=>{
+          const sc=e.pr[p];
+          const isBest=e.rTotals.some(rt=>rt&&rt.best&&rt.best.includes(p));
+          const cut=sc.is_cut;
+          let latest=null;[4,3,2,1].some(r=>{if(sc['r'+r]!==null){latest=sc['r'+r];return true;}});
+          const cls=cut?'psc':latest===null?'pse':latest<0?'psu':latest>0?'pso':'pse';
+          return `<span class="ps ${cls}" style="${isBest?'border:1px solid rgba(111,190,138,.35);':''}">${p} <strong>${cut&&latest===null?'CUT':fmtSc(latest)}</strong></span>`;
+        }).join('');
+      }else{
+        picksHtml=`<span class="hidden-picks">Hidden until tournament starts</span>`;
+      }
+
+      const roundCells=[1,2,3,4].map((r,i)=>{
+        if(!hasRound[i])return '';
+        const rt=e.rTotals[i];const v=rt?rt.total:null;
+        return `<td style="text-align:right;font-family:'Playfair Display',serif;font-size:14px;" class="${v===null?'se':v<0?'su':v>0?'so':'se'}">${v===null?'—':fmtTot(v)}</td>`;
+      }).join('');
+
+      const youBadge=isMe?'<span class="you-badge">You</span>':'';
+      const tbHint=e.tiebreaker!==null&&e.tiebreaker!==undefined&&(isMe||isAdmin()||locked())?` <span style="font-size:10px;opacity:.35;">🎯${e.tiebreaker>=0?'+'+e.tiebreaker:e.tiebreaker}</span>`:'';
+      html+=`<tr class="r${idx+1}">
+        <td><span class="rnum">${idx+1}</span></td>
+        <td><div class="ename">${e.display_name}${youBadge}${tbHint}</div><div class="epicks">${picksHtml}</div></td>
+        ${roundCells}
+        <td style="text-align:right"><div class="stot ${totCls(e.total)}">${fmtTot(e.total)}</div></td>
+      </tr>`;
+    });
+    c.innerHTML=html+'</tbody></table>';
+  }catch(e){c.innerHTML=`<div style="color:#e07070;padding:20px;">Error: ${e.message}</div>`;}
+}
+
+// ══════════════════════════════════════
+//  PROFILE
+// ══════════════════════════════════════
+function renderProfile(){
+  const el=document.getElementById('profile-info');
+  if(!el||!currentUser)return;
+  el.innerHTML=`<div class="profile-name">${currentUser.display_name}${isAdmin()?'<span class="you-badge" style="background:rgba(160,30,30,.3);color:#faa;">Admin</span>':''}</div><div class="profile-meta">@${currentUser.username} · Member since ${new Date(currentUser.created_at).toLocaleDateString()}</div>`;
+}
+
+async function loadProfileEntry(){
+  const el=document.getElementById('profile-entry');
+  if(!currentUser)return;
+  try{
+    const rows=await sbGet('entries',`?user_id=eq.${currentUser.id}&select=*`);
+    if(!rows.length){el.innerHTML='<div class="empty"><div class="empty-t" style="font-size:15px;">No picks yet — go to My Picks.</div></div>';return;}
+    const e=rows[0];
+    const rows2=Object.entries(e.picks).map(([t,ps])=>{
+      const arr=Array.isArray(ps)?ps:[ps];
+      return arr.map((p,k)=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:14px;"><span style="opacity:.55;">${t} — Pick ${k+1}</span><strong>${p}</strong></div>`).join('');
+    }).join('');
+    const tb=e.tiebreaker!==null&&e.tiebreaker!==undefined?`<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:14px;border-top:1px solid rgba(201,168,76,.2);margin-top:4px;"><span style="opacity:.55;">🎯 Tiebreaker</span><strong>${e.tiebreaker>=0?'+'+e.tiebreaker:e.tiebreaker}</strong></div>`:'';
+    el.innerHTML=`<div class="card">${rows2}${tb}<div style="margin-top:12px;font-size:13px;opacity:.4;">${locked()?'Picks locked.':'You can edit picks from the My Picks tab.'}</div></div>`;
+  }catch(e){el.innerHTML=`<div style="color:#e07070;padding:12px;">${e.message}</div>`;}
+}
+
+// ══════════════════════════════════════
+//  FIELD VIEW
+// ══════════════════════════════════════
+function renderField(){
+  const d=document.getElementById('tier-display');
+  if(!d)return;
+  d.innerHTML=TIERS.map((t,i)=>{
+    const rng=t.players.length?`${fo(t.players[0].o)} – ${fo(t.players[t.players.length-1].o)}`:'';
+    const rows=t.players.map(p=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);"><span style="font-size:14px;">${p.n}</span><span class="obadge ${t.badge}">${fo(p.o)}</span></div>`).join('');
+    return `<div class="card" style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--go);">${t.label}</div><div style="font-size:12px;opacity:.45;margin-top:2px;">${t.players.length} players · ${rng} · Pick ${t.picks}</div></div><span class="obadge ${t.badge}" style="font-size:13px;padding:3px 10px;">T${i+1}</span></div>${rows}</div>`;
+  }).join('');
+  const tbl=document.getElementById('field-table');
+  let rows=`<thead><tr><th>#</th><th>Player</th><th>Odds</th><th>Tier</th></tr></thead><tbody>`;
+  FIELD.forEach((p,i)=>{
+    const ti=TIERS.findIndex(t=>t.players.some(tp=>tp.n===p.n));
+    rows+=`<tr><td style="color:rgba(245,240,232,.35);font-size:12px;">${i+1}</td><td>${p.n}</td><td style="color:var(--gl2);font-weight:600;">${fo(p.o)}</td><td>${ti>=0?`<span class="obadge ${TIERS[ti].badge}">T${ti+1}</span>`:'—'}</td></tr>`;
+  });
+  tbl.innerHTML=rows+'</tbody>';
+}
+
+// ══════════════════════════════════════
+//  ADMIN — MANAGE ENTRIES
+// ══════════════════════════════════════
+async function loadAdminEntries(){
+  if(!isAdmin())return;
+  const el=document.getElementById('admin-entries-list');
+  try{
+    const entries=await sbGet('entries','?select=*&order=created_at.asc');
+    if(!entries.length){el.innerHTML='<div class="empty"><div class="empty-t" style="font-size:14px;">No entries yet.</div></div>';return;}
+    el.innerHTML=entries.map(e=>`
+      <div class="entry-admin-row">
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:15px;">${e.display_name}</div>
+          <div style="font-size:12px;color:rgba(245,240,232,.4);margin-top:2px;">${Object.values(e.picks).flatMap(v=>Array.isArray(v)?v:[v]).join(', ')}</div>
+        </div>
+        <button class="btn btn-d btn-sm" onclick="adminDeleteEntry('${e.user_id}','${e.display_name}')">✕ Remove</button>
+      </div>`).join('');
+  }catch(e){el.innerHTML=`<div style="color:#e07070;padding:12px;">${e.message}</div>`;}
+}
+
+async function adminDeleteEntry(userId,name){
+  if(!confirm(`Remove ${name}'s entry? This cannot be undone.`))return;
+  try{
+    await sbDel('entries',`user_id=eq.${userId}`);
+    toast(`${name}'s entry removed`);
+    loadAdminEntries();
+    loadLB();
+  }catch(e){toast('Error: '+e.message);}
+}
+
+// ══════════════════════════════════════
+//  ADMIN — SCORE ENTRY
+// ══════════════════════════════════════
+function setRound(r){
+  activeRound=r;
+  [1,2,3,4].forEach(i=>{
+    const b=document.getElementById('rb'+i);if(!b)return;
+    if(i===r){b.style.background='var(--go)';b.style.color='var(--gd)';b.classList.remove('btn-o');}
+    else{b.style.background='transparent';b.style.color='var(--go)';b.classList.add('btn-o');}
+  });
+  loadScoreGrid();
+}
+
+async function loadScoreGrid(){
+  if(!isAdmin())return;
+  try{
+    const[entries,scores]=await Promise.all([sbGet('entries','?select=picks'),sbGet('scores','?select=*')]);
+    const sm={};scores.forEach(s=>sm[s.player]=s);
+    const players=[...new Set(entries.flatMap(e=>Object.values(e.picks).flatMap(v=>Array.isArray(v)?v:[v])))].sort();
+    const g=document.getElementById('score-grid');
+    if(!players.length){g.innerHTML='<div class="empty"><div class="empty-t" style="font-size:14px;">No entries yet.</div></div>';return;}
+    const rk='r'+activeRound;
+    g.innerHTML=players.map(p=>{
+      const sc=sm[p]||{};const isCut=sc.is_cut||false;
+      const val=isCut&&activeRound>=3?'+10':(sc[rk]||'E');
+      const sid=p.replace(/[^a-zA-Z0-9]/g,'_');
+      const dis=isCut&&activeRound>=3;
+      return `<div class="srow"><div class="spname" title="${p}">${p}${isCut?'<span style="font-size:10px;color:#e07070;margin-left:4px;">✂CUT</span>':''}</div><input type="text" class="sinp" id="si_${sid}" value="${dis?'+10':val}" ${dis?'disabled':''}><button class="ctgl ${isCut?'cut':''}" onclick="toggleCutR('${p.replace(/'/g,"\\'")}','${sid}')">✂</button></div>`;
+    }).join('');
+  }catch(e){toast('Error: '+e.message);}
+}
+
+function toggleCutR(p,sid){
+  const btn=document.querySelector(`.ctgl[onclick*="'${sid}'"]`);
+  const inp=document.getElementById('si_'+sid);
+  if(!btn||!inp)return;
+  const wasCut=btn.classList.contains('cut');
+  btn.classList.toggle('cut',!wasCut);
+  if(!wasCut){inp.value=activeRound>=3?'+10':'CUT';inp.disabled=activeRound>=3;}
+  else{inp.value='E';inp.disabled=false;}
+}
+
+async function saveScores(){
+  const rows=document.querySelectorAll('#score-grid .srow');
+  const rk='r'+activeRound;
+  const existing=await sbGet('scores','?select=*');
+  const exMap={};existing.forEach(s=>exMap[s.player]=s);
+  const ups=[];
+  rows.forEach(row=>{
+    const p=row.querySelector('.spname').title;
+    const inp=row.querySelector('.sinp');
+    const ct=row.querySelector('.ctgl');
+    const is_cut=ct.classList.contains('cut');
+    const prev=exMap[p]||{r1:null,r2:null,r3:null,r4:null,is_cut:false};
+    const ur={player:p,is_cut,r1:prev.r1||null,r2:prev.r2||null,r3:prev.r3||null,r4:prev.r4||null};
+    ur[rk]=inp.disabled?(activeRound>=3?'+10':null):(inp.value.trim()||null);
+    ups.push(ur);
+  });
+  try{await sbUpsert('scores',ups,'player');loadLB();toast(`R${activeRound} scores saved ✓`);}
+  catch(e){toast('Error: '+e.message);}
+}
+
+// ══════════════════════════════════════
+//  AUTO-REFRESH ENGINE
+// ══════════════════════════════════════
+const REFRESH_MS=3*60*1000;
+const T_START=new Date('2026-04-09T13:00:00Z');
+const T_END=new Date('2026-04-13T00:00:00Z');
+let autoOn=false,autoTimer=null,nextAt=null,cdTimer=null;
+
+function isTLive(){const now=new Date();return now>=T_START&&now<=T_END;}
+function startAutoRefresh(){
+  if(autoTimer)clearInterval(autoTimer);
+  if(cdTimer)clearInterval(cdTimer);
+  autoOn=true;updateRefreshUI();
+  if(isTLive())runAutoFetch();
+  autoTimer=setInterval(()=>{if(isTLive())runAutoFetch();else updateRefreshUI();},REFRESH_MS);
+  cdTimer=setInterval(updateCountdown,1000);
+  nextAt=Date.now()+REFRESH_MS;
+}
+function stopAutoRefresh(){autoOn=false;if(autoTimer){clearInterval(autoTimer);autoTimer=null;}if(cdTimer){clearInterval(cdTimer);cdTimer=null;}updateRefreshUI();}
+function toggleAutoRefresh(){autoOn?stopAutoRefresh():startAutoRefresh();}
+async function runAutoFetch(){nextAt=Date.now()+REFRESH_MS;await fetchESPN(true);loadLB();}
+
+function updateRefreshUI(){
+  const dot=document.getElementById('refresh-dot');
+  const lbl=document.getElementById('refresh-label');
+  const btn=document.getElementById('auto-toggle-btn');
+  const lbDot=document.getElementById('lb-dot');
+  if(!dot)return;
+  if(autoOn&&isTLive()){dot.className='dot g';lbl.textContent='Auto-refresh active · every 3 min';if(btn)btn.textContent='Pause';if(lbDot)lbDot.className='dot g';}
+  else if(autoOn&&!isTLive()){dot.className='dot y';lbl.textContent='Auto-refresh on · waiting for tournament hours';if(btn)btn.textContent='Pause';if(lbDot)lbDot.className='dot y';}
+  else{dot.className='dot r';lbl.textContent='Auto-refresh paused';if(btn)btn.textContent='Resume';if(lbDot)lbDot.className='dot';}
+}
+function updateCountdown(){
+  const lbl=document.getElementById('lb-refresh-label');if(!lbl||!autoOn)return;
+  if(!isTLive()){lbl.textContent='Updates automatically during tournament hours';return;}
+  if(!nextAt){lbl.textContent='Updating…';return;}
+  const s=Math.max(0,Math.round((nextAt-Date.now())/1000));
+  const m=Math.floor(s/60),sec=s%60;
+  lbl.textContent=`Live · next update in ${m}:${sec.toString().padStart(2,'0')}`;
+}
+
+async function fetchESPN(silent=false){
+  const st=document.getElementById('espn-status');
+  if(!silent&&st)st.textContent='Fetching…';
+  try{
+    const res=await fetch('https://site.api.espn.com/apis/site/v2/sports/golf/leaderboard?league=pga');
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    const event=data?.events?.[0];
+    if(!event)throw new Error('No active event');
+    const comps=event?.competitions?.[0]?.competitors||[];
+    const espnMap={};
+    comps.forEach(c=>{
+      const fn=(c.athlete?.displayName||`${c.athlete?.firstName||''} ${c.athlete?.lastName||''}`).trim();
+      espnMap[fn.toLowerCase()]=c;
+    });
+    const[entries,exScores]=await Promise.all([sbGet('entries','?select=picks'),sbGet('scores','?select=*')]);
+    const exMap={};exScores.forEach(s=>exMap[s.player]=s);
+    const players=[...new Set(entries.flatMap(e=>Object.values(e.picks).flatMap(v=>Array.isArray(v)?v:[v])))];
+    const rk='r'+activeRound;const ups=[];let matched=0;
+    players.forEach(player=>{
+      const comp=espnMap[player.toLowerCase()];if(!comp)return;
+      const is_cut=comp.status?.type?.name==='STATUS_CUT'||comp.status?.type?.description?.toLowerCase().includes('cut')||false;
+      const ls=comp.linescores||[];
+      let rScore=null;
+      const v=ls[activeRound-1]?.value;
+      if(v!==undefined&&v!==null&&!isNaN(Number(v)))rScore=Number(v)===0?'E':Number(v)>0?`+${Number(v)}`:`${Number(v)}`;
+      if(rScore===null&&activeRound===1){const ov=comp.score?.value;if(ov!==undefined&&ov!==null){const n=Number(ov);rScore=n===0?'E':n>0?`+${n}`:`${n}`;}}
+      const prev=exMap[player]||{r1:null,r2:null,r3:null,r4:null,is_cut:false};
+      const ur={player,is_cut,r1:prev.r1,r2:prev.r2,r3:prev.r3,r4:prev.r4};
+      ur[rk]=is_cut&&activeRound>=3?'+10':(rScore||prev[rk]);
+      ups.push(ur);matched++;
+    });
+    if(ups.length)await sbUpsert('scores',ups,'player');
+    if(isAdmin())loadScoreGrid();
+    const ts=new Date().toLocaleTimeString();
+    if(st)st.textContent=`✓ ${matched}/${players.length} players · ${ts}`;
+    if(!silent)toast(`ESPN: ${matched} scores updated ✓`);
+  }catch(e){if(st)st.textContent='⚠️ '+e.message;if(!silent)toast('ESPN fetch failed');console.error(e);}
+}
+
+// ══════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove('show'),2800);
+}
+
+// ══════════════════════════════════════
+//  INIT — check session, then launch
+// ══════════════════════════════════════
+(async function init(){
+  const saved=localStorage.getItem('mp26_user');
+  if(saved){
+    try{
+      const u=JSON.parse(saved);
+      // Re-verify user still exists
+      const rows=await sbGet('users',`?id=eq.${u.id}&select=*`);
+      if(rows.length){currentUser=rows[0];localStorage.setItem('mp26_user',JSON.stringify(currentUser));launchApp();return;}
+    }catch(e){}
+    localStorage.removeItem('mp26_user');
+  }
+})();
+</script>
+
+</body>
+</html>
