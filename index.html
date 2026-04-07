@@ -3,13 +3,29 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Masters Pool 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Nick's Big Masters Pool</title>
+
+<!-- PWA -->
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Masters Pool">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a3a2a">
+
+<!-- Icons for home screen -->
+
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='80' fill='%231a3a2a'/%3E%3Ctext x='256' y='340' font-size='280' text-anchor='middle'%3E⛳%3C/text%3E%3C/svg%3E">
+
+<!-- Inline manifest -->
+
+<link rel="manifest" href="data:application/json,%7B%22name%22%3A%22Nick%27s+Big+Masters+Pool%22%2C%22short_name%22%3A%22Masters+Pool%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%231a3a2a%22%2C%22theme_color%22%3A%22%231a3a2a%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg+xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27+viewBox%3D%270+0+512+512%27%253E%253Crect+width%3D%27512%27+height%3D%27512%27+rx%3D%2780%27+fill%3D%27%25231a3a2a%27%2F%253E%253Ctext+x%3D%27256%27+y%3D%27340%27+font-size%3D%27280%27+text-anchor%3D%27middle%27%253E%25E2%259B%263F%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Crimson+Pro:wght@300;400;500&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
 <style>
 :root{--gd:#1a3a2a;--gm:#2d5a3d;--gl:#4a7c5a;--cr:#f5f0e8;--cd:#e8e0cc;--go:#c9a84c;--gl2:#e6c97a;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Crimson Pro',Georgia,serif;background:var(--gd);color:var(--cr);min-height:100vh;background-image:radial-gradient(ellipse at 20% 50%,rgba(45,90,61,.4) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(74,124,90,.2) 0%,transparent 50%),repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.012) 40px,rgba(255,255,255,.012) 41px);}
+body{font-family:'Crimson Pro',Georgia,serif;background:var(--gd);color:var(--cr);min-height:100vh;padding-bottom:env(safe-area-inset-bottom);background-image:radial-gradient(ellipse at 20% 50%,rgba(45,90,61,.4) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(74,124,90,.2) 0%,transparent 50%),repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.012) 40px,rgba(255,255,255,.012) 41px);}
 
 /* AUTH */
 .auth-wrap{max-width:400px;margin:60px auto;padding:0 20px;}
@@ -149,6 +165,10 @@ select option{background:#1a3a2a;color:#f5f0e8;}
 
 <!-- ══ AUTH SCREEN ══ -->
 
+<div id="install-banner" style="display:none;background:rgba(201,168,76,.15);border-bottom:1px solid rgba(201,168,76,.3);padding:10px 16px;text-align:center;font-size:13px;color:var(--cd);">
+  📲 Tap <strong style="color:var(--go);">Share</strong> then <strong style="color:var(--go);">"Add to Home Screen"</strong> to install the app
+  <button onclick="document.getElementById('install-banner').style.display='none'" style="-webkit-appearance:none;background:none;border:none;color:rgba(245,240,232,.4);font-size:16px;margin-left:8px;cursor:pointer;">✕</button>
+</div>
 <div id="auth-screen">
   <div class="auth-wrap">
     <div class="auth-logo">
@@ -190,7 +210,7 @@ select option{background:#1a3a2a;color:#f5f0e8;}
 <div class="app" id="app">
   <div class="header">
     <div class="h-badge">⛳ Augusta National · April 2026</div>
-    <div class="h-title">Masters <span>Pool</span></div>
+    <div class="h-title">Welcome to Nick's <span>Big Masters Pool!</span></div>
     <div class="h-sub">Tiered Picks · Best 4 Daily · Score to Par</div>
   </div>
 
@@ -258,8 +278,8 @@ select option{background:#1a3a2a;color:#f5f0e8;}
     <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--go);margin-bottom:12px;">📋 Format</div>
     <div style="font-size:15px;color:var(--cd);line-height:1.8;">Each entry picks <strong style="color:var(--cr);">8 golfers</strong> across 4 tiers:
       <ul style="margin:10px 0 10px 20px;display:flex;flex-direction:column;gap:5px;">
-        <li><strong style="color:var(--go);">Tier 1 — Favorites</strong> · Pick 3</li>
-        <li><strong style="color:var(--go);">Tier 2 — Contenders</strong> · Pick 2</li>
+        <li><strong style="color:var(--go);">Tier 1 — Big Guns</strong> · Pick 3</li>
+        <li><strong style="color:var(--go);">Tier 2 — Second Cut</strong> · Pick 2</li>
         <li><strong style="color:var(--go);">Tier 3 — Dark Horses</strong> · Pick 2</li>
         <li><strong style="color:var(--go);">Tier 4 — Longshots</strong> · Pick 1</li>
       </ul>
@@ -321,7 +341,7 @@ select option{background:#1a3a2a;color:#f5f0e8;}
 
   <!-- Round Score Entry -->
   <div class="stitle" style="font-size:17px;">Score Entry by Round</div>
-  <div class="notice">Enter each golfer's round score to par. Toggle ✂ for missed cut — auto-applies +10 on R3/R4.</div>
+  <div class="notice">Enter each golfer's round score to par (e.g. <strong>-5</strong>, <strong>+2</strong>, <strong>E</strong>). Cuts are detected and applied automatically by ESPN — no manual action needed.</div>
   <div class="card">
     <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
       <button class="btn btn-sm" id="rb1" onclick="setRound(1)" style="background:var(--go);color:var(--gd);font-family:'IM Fell English SC',serif;letter-spacing:1px;border:none;">R1 Thu</button>
@@ -409,8 +429,8 @@ const FIELD=[
   {n:"Charl Schwartzel",o:60000},{n:"Bubba Watson",o:60000},{n:"Zach Johnson",o:60000},
 ];
 const TIER_META=[
-  {label:"Tier 1 — Favorites",  color:"#1a4c28",badge:"t1",picks:3},
-  {label:"Tier 2 — Contenders", color:"#1a3455",badge:"t2",picks:2},
+  {label:"Tier 1 — Big Guns",  color:"#1a4c28",badge:"t1",picks:3},
+  {label:"Tier 2 — Second Cut", color:"#1a3455",badge:"t2",picks:2},
   {label:"Tier 3 — Dark Horses",color:"#4a2e0a",badge:"t3",picks:2},
   {label:"Tier 4 — Longshots",  color:"#32185a",badge:"t4",picks:1},
 ];
@@ -418,7 +438,7 @@ const TIER_META=[
 // ══════════════════════════════════════
 //  STATE
 // ══════════════════════════════════════
-let TIERS=[], currentUser=null, LOCKED=false, activeRound=1;
+let TIERS=[], currentUser=null, LOCKED=false, activeRound=1, TEE_TIMES={};
 const LOCK_TIME=new Date('2026-04-09T13:00:00Z');
 
 function buildTiers(){
@@ -543,6 +563,44 @@ async function changePassword(){
 }
 
 // ══════════════════════════════════════
+//  TEE TIMES — from ESPN API
+// ══════════════════════════════════════
+async function fetchTeeTimes(){
+  try{
+    const res=await fetch('https://site.api.espn.com/apis/site/v2/sports/golf/leaderboard?league=pga');
+    if(!res.ok)return;
+    const data=await res.json();
+    const comps=data?.events?.[0]?.competitions?.[0]?.competitors||[];
+    const newTimes={};
+    comps.forEach(c=>{
+      const name=(c.athlete?.displayName||'').trim();
+      if(!name)return;
+      const tt=c.teeTime||null;
+      if(tt)newTimes[name]=formatTeeTime(tt);
+    });
+    if(Object.keys(newTimes).length>0){
+      TEE_TIMES=newTimes;
+      renderField();
+      renderPicksForm();
+      if(currentUser)loadMyEntry();
+    }
+  }catch(e){console.log('Tee time fetch:',e);}
+}
+
+function formatTeeTime(raw){
+  if(!raw)return null;
+  try{
+    const d=new Date(raw);
+    if(!isNaN(d.getTime()))
+      return d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York',hour12:true})+' ET';
+  }catch(e){}
+  if(typeof raw==='string'&&raw.includes(':'))return raw;
+  return null;
+}
+
+function tt(name){return TEE_TIMES[name]||null;}
+
+// ══════════════════════════════════════
 //  LAUNCH
 // ══════════════════════════════════════
 function launchApp(){
@@ -560,6 +618,8 @@ function launchApp(){
   setInterval(tickLock,30000);
   setInterval(()=>{if(document.getElementById('panel-leaderboard').classList.contains('active'))loadLB();},30000);
   startAutoRefresh();
+  fetchTeeTimes();
+  setInterval(fetchTeeTimes, 30*60*1000); // refresh tee times every 30 min
 }
 
 // ══════════════════════════════════════
@@ -749,7 +809,7 @@ async function loadLB(){
 
     ranked.forEach((e,idx)=>{
       const isMe=currentUser&&e.user_id===currentUser.id;
-      const showPicks=picksVisible||isMe||isAdmin();
+      const showPicks=picksVisible||isMe; // admin sees hidden picks same as everyone
       let picksHtml='';
       if(showPicks){
         picksHtml=e.players.map(p=>{
@@ -761,7 +821,7 @@ async function loadLB(){
           return `<span class="ps ${cls}" style="${isBest?'border:1px solid rgba(111,190,138,.35);':''}">${p} <strong>${cut&&latest===null?'CUT':fmtSc(latest)}</strong></span>`;
         }).join('');
       }else{
-        picksHtml=`<span class="hidden-picks">Hidden until tournament starts</span>`;
+        picksHtml=`<span class="hidden-picks">Selections hidden until tournament starts</span>`;
       }
 
       const roundCells=[1,2,3,4].map((r,i)=>{
@@ -816,11 +876,11 @@ function renderField(){
   if(!d)return;
   d.innerHTML=TIERS.map((t,i)=>{
     const rng=t.players.length?`${fo(t.players[0].o)} – ${fo(t.players[t.players.length-1].o)}`:'';
-    const rows=t.players.map(p=>`<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);"><span style="font-size:14px;">${p.n}</span><span class="obadge ${t.badge}">${fo(p.o)}</span></div>`).join('');
+    const rows=t.players.map(p=>{const ttime=tt(p.n);return`<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);"><span style="font-size:14px;">${p.n}${ttime?`<span style="font-size:11px;color:rgba(245,240,232,.4);margin-left:6px;">⏰ ${ttime}</span>`:''}</span><span class="obadge ${t.badge}">${fo(p.o)}</span></div>`;}).join('');
     return `<div class="card" style="margin-bottom:12px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><div><div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--go);">${t.label}</div><div style="font-size:12px;opacity:.45;margin-top:2px;">${t.players.length} players · ${rng} · Pick ${t.picks}</div></div><span class="obadge ${t.badge}" style="font-size:13px;padding:3px 10px;">T${i+1}</span></div>${rows}</div>`;
   }).join('');
   const tbl=document.getElementById('field-table');
-  let rows=`<thead><tr><th>#</th><th>Player</th><th>Odds</th><th>Tier</th></tr></thead><tbody>`;
+  let rows=`<thead><tr><th>#</th><th>Player</th><th>Tee Time</th><th>Odds</th><th>Tier</th></tr></thead><tbody>`;
   FIELD.forEach((p,i)=>{
     const ti=TIERS.findIndex(t=>t.players.some(tp=>tp.n===p.n));
     rows+=`<tr><td style="color:rgba(245,240,232,.35);font-size:12px;">${i+1}</td><td>${p.n}</td><td style="color:var(--gl2);font-weight:600;">${fo(p.o)}</td><td>${ti>=0?`<span class="obadge ${TIERS[ti].badge}">T${ti+1}</span>`:'—'}</td></tr>`;
@@ -885,20 +945,12 @@ async function loadScoreGrid(){
       const val=isCut&&activeRound>=3?'+10':(sc[rk]||'E');
       const sid=p.replace(/[^a-zA-Z0-9]/g,'_');
       const dis=isCut&&activeRound>=3;
-      return `<div class="srow"><div class="spname" title="${p}">${p}${isCut?'<span style="font-size:10px;color:#e07070;margin-left:4px;">✂CUT</span>':''}</div><input type="text" class="sinp" id="si_${sid}" value="${dis?'+10':val}" ${dis?'disabled':''}><button class="ctgl ${isCut?'cut':''}" onclick="toggleCutR('${p.replace(/'/g,"\\'")}','${sid}')">✂</button></div>`;
+      return `<div class="srow"><div class="spname" title="${p}">${p}${isCut?'<span style="font-size:10px;color:#e07070;margin-left:4px;">CUT</span>':''}</div><input type="text" class="sinp" id="si_${sid}" value="${dis?'+10':val}" ${dis?'disabled':''}></div>`;
     }).join('');
   }catch(e){toast('Error: '+e.message);}
 }
 
-function toggleCutR(p,sid){
-  const btn=document.querySelector(`.ctgl[onclick*="'${sid}'"]`);
-  const inp=document.getElementById('si_'+sid);
-  if(!btn||!inp)return;
-  const wasCut=btn.classList.contains('cut');
-  btn.classList.toggle('cut',!wasCut);
-  if(!wasCut){inp.value=activeRound>=3?'+10':'CUT';inp.disabled=activeRound>=3;}
-  else{inp.value='E';inp.disabled=false;}
-}
+// Cut toggling handled automatically by ESPN fetch
 
 async function saveScores(){
   const rows=document.querySelectorAll('#score-grid .srow');
@@ -909,11 +961,10 @@ async function saveScores(){
   rows.forEach(row=>{
     const p=row.querySelector('.spname').title;
     const inp=row.querySelector('.sinp');
-    const ct=row.querySelector('.ctgl');
-    const is_cut=ct.classList.contains('cut');
     const prev=exMap[p]||{r1:null,r2:null,r3:null,r4:null,is_cut:false};
+    const is_cut=prev.is_cut; // preserve cut status set by ESPN
     const ur={player:p,is_cut,r1:prev.r1||null,r2:prev.r2||null,r3:prev.r3||null,r4:prev.r4||null};
-    ur[rk]=inp.disabled?(activeRound>=3?'+10':null):(inp.value.trim()||null);
+    ur[rk]=inp.disabled?'+10':(inp.value.trim()||null);
     ups.push(ur);
   });
   try{await sbUpsert('scores',ups,'player');loadLB();toast(`R${activeRound} scores saved ✓`);}
@@ -1036,6 +1087,11 @@ function toast(msg){
 // ══════════════════════════════════════
 //  INIT — check session, then launch
 // ══════════════════════════════════════
+// Show install banner if not already installed as PWA
+if(!window.navigator.standalone && !window.matchMedia('(display-mode: standalone)').matches){
+  document.getElementById('install-banner').style.display='block';
+}
+
 (async function init(){
   const saved=localStorage.getItem('mp26_user');
   if(saved){
